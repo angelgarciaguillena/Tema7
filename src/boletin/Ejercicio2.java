@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Ejercicio1 {
+public class Ejercicio2 {
 	public static void main(String[] args) {
 		
 		/*Creamos una variable para almacenar la conexion con la base de datos*/
@@ -21,16 +21,13 @@ public class Ejercicio1 {
 		try(Connection con = DriverManager.getConnection(CONEXION, USUARIO, CONTRASEÑA)){
 			
 			/*Creamos la consulta*/
-			String consulta1 = "INSERT INTO estudiantes (nombre, apellido, fecha_nacimiento, email, telefono) VALUES"
-					+ "('Paco', 'Fernandez', '2006-03-12', 'pacofernandez@gmail.com', '456789123')";
+			String consulta1 = "UPDATE estudiantes SET nombre = 'Ana modificado' WHERE nombre = 'Ana'";
 			
 			/*Creamos la segunda consulta*/
-			String consulta2 = "INSERT INTO profesores (nombre, apellido, especialidad, email) VALUES" 
-					+ "('Antonio', 'Parrilla', '2003-12-08', 'antonioparrilla@gmail.com', '523738173')";
+			String consulta2 = "UPDATE profesores SET nombre = 'Javier modificado' WHERE nombre = 'Javier'";
 			
 			/*Creamos la tercera consulta*/
-			String consulta3 = "INSERT INTO cursos (nombre, descripcion, año_escolar) VALUES" 
-					+ "('Fisica 1º', 'Fisica para primer año', 2025)";
+			String consulta3 = "UPDATE cursos SET nombre = 'Lengua 2º' WHERE nombre = 'Lengua 1º'";
 			
 			/*Añadimos un mensaje de que se ha realizado la conexion con la base de datos*/
 			System.out.println("La conexion se ha realizado");
