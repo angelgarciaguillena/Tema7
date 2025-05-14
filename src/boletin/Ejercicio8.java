@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
-public class Ejercicio1 {
+public class Ejercicio8 {
 	public static void main(String[] args) {
 		
 		/*Creamos una variable para almacenar la conexion con la base de datos*/
@@ -17,20 +18,23 @@ public class Ejercicio1 {
 		/*Creamos una variable para almacenar la contraseña*/
 		final String CONTRASEÑA = "AngelSQL1234";
 		
+		/*Creamos una variable para almacenar el id del estudiante*/
+		int id;
+		
+		/*Creamos un Scanner*/
+		Scanner sc = new Scanner(System.in);
+		
+		/*Pedimos al usuario que introduzca el id del alumno que se quiere eliminar*/
+		System.out.println("Introduce el id del estudiante");
+		
+		/*Leemos el id del estudiante*/
+		id = sc.nextInt();
+		
 		/*Creamos un try catch para avisar al usuario en caso de que se produzca un error*/
 		try(Connection con = DriverManager.getConnection(CONEXION, USUARIO, CONTRASEÑA)){
 			
-			/*Creamos la consulta*/
-			String consulta1 = "INSERT INTO estudiantes (nombre, apellido, fecha_nacimiento, email, telefono) VALUES"
-					+ "('Paco', 'Fernandez', '2006-03-12', 'pacofernandez@gmail.com', '456789123')";
-			
-			/*Creamos la segunda consulta*/
-			String consulta2 = "INSERT INTO profesores (nombre, apellido, especialidad, email) VALUES" 
-					+ "('Antonio', 'Parrilla', '2003-12-08', 'antonioparrilla@gmail.com', '523738173')";
-			
-			/*Creamos la tercera consulta*/
-			String consulta3 = "INSERT INTO cursos (nombre, descripcion, año_escolar) VALUES" 
-					+ "('Fisica 1º', 'Fisica para primer año', 2025)";
+			/*Creamos la consulta para eliminar al alumno*/
+			String consulta = "DELETE FROM estudiantes WHERE id_estudiante = " + id;
 			
 			/*Añadimos un mensaje de que se ha realizado la conexion con la base de datos*/
 			System.out.println("La conexion se ha realizado");
@@ -38,17 +42,14 @@ public class Ejercicio1 {
 			/*Creamos una sentencia*/
 			Statement sentencia = con.createStatement();
 			
-			/*Ejecutamos la consulta 1*/
-			sentencia.executeUpdate(consulta1);	
-			
-			/*Ejecutamos la consulta 2*/
-			sentencia.executeUpdate(consulta2);
-			
-			/*Ejecutamos la consulta 3*/
-			sentencia.executeUpdate(consulta3);
+			/*Ejecutamos la consulta*/
+			sentencia.executeUpdate(consulta);	
 			
 		} catch(SQLException e) {
 			System.out.println("Error con la base de datos " + e.getMessage());
 		}
+		
+		/*Cerramos el Scanner*/
+		sc.close();
 	}
 }

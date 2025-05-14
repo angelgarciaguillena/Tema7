@@ -2,10 +2,11 @@ package boletin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Ejercicio1 {
+public class Ejercicio9 {
 	public static void main(String[] args) {
 		
 		/*Creamos una variable para almacenar la conexion con la base de datos*/
@@ -20,17 +21,8 @@ public class Ejercicio1 {
 		/*Creamos un try catch para avisar al usuario en caso de que se produzca un error*/
 		try(Connection con = DriverManager.getConnection(CONEXION, USUARIO, CONTRASEÑA)){
 			
-			/*Creamos la consulta*/
-			String consulta1 = "INSERT INTO estudiantes (nombre, apellido, fecha_nacimiento, email, telefono) VALUES"
-					+ "('Paco', 'Fernandez', '2006-03-12', 'pacofernandez@gmail.com', '456789123')";
-			
-			/*Creamos la segunda consulta*/
-			String consulta2 = "INSERT INTO profesores (nombre, apellido, especialidad, email) VALUES" 
-					+ "('Antonio', 'Parrilla', '2003-12-08', 'antonioparrilla@gmail.com', '523738173')";
-			
-			/*Creamos la tercera consulta*/
-			String consulta3 = "INSERT INTO cursos (nombre, descripcion, año_escolar) VALUES" 
-					+ "('Fisica 1º', 'Fisica para primer año', 2025)";
+			/*Creamos la consulta con los datos de los alumnos*/
+			String consulta = "SELECT nombre, fecha_nacimiento FROM estudiantes";
 			
 			/*Añadimos un mensaje de que se ha realizado la conexion con la base de datos*/
 			System.out.println("La conexion se ha realizado");
@@ -38,14 +30,16 @@ public class Ejercicio1 {
 			/*Creamos una sentencia*/
 			Statement sentencia = con.createStatement();
 			
-			/*Ejecutamos la consulta 1*/
-			sentencia.executeUpdate(consulta1);	
+			/*Ejecutamos la consulta*/
+			ResultSet rs = sentencia.executeQuery(consulta);
 			
-			/*Ejecutamos la consulta 2*/
-			sentencia.executeUpdate(consulta2);
+			/*Mostramos los campos de los alumnos*/
+			System.out.println("\n" + "Nombre" + "  " + "Fecha de nacimiento");
 			
-			/*Ejecutamos la consulta 3*/
-			sentencia.executeUpdate(consulta3);
+			/*Creamos un bucle while para mostrar la informacion de la consulta*/
+			while(rs.next()) {
+				System.out.println(rs.getString(1) + "  " + rs.getString(2));
+			}
 			
 		} catch(SQLException e) {
 			System.out.println("Error con la base de datos " + e.getMessage());

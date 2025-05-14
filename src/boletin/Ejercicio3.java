@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Ejercicio3 {
-public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		/*Creamos una variable para almacenar la conexion con la base de datos*/
 		final String CONEXION = "jdbc:mysql://localhost/institutodb";
@@ -20,8 +20,8 @@ public static void main(String[] args) {
 		/*Creamos un try catch para avisar al usuario en caso de que se produzca un error*/
 		try(Connection con = DriverManager.getConnection(CONEXION, USUARIO, CONTRASEÑA)){
 			
-			/*Creamos la consulta*/
-			String consulta1 = "DELETE FROM estudiantes WHERE apellido = 'Fernandez'";
+			/*Creamos la consulta para eliminar al estudiante*/
+			String consulta = "DELETE FROM estudiantes WHERE apellido = 'Fernandez'";
 			
 			/*Añadimos un mensaje de que se ha realizado la conexion con la base de datos*/
 			System.out.println("La conexion se ha realizado");
@@ -29,8 +29,8 @@ public static void main(String[] args) {
 			/*Creamos una sentencia*/
 			Statement sentencia = con.createStatement();
 			
-			/*Ejecutamos la consulta 1*/
-			sentencia.executeUpdate(consulta1);	
+			/*Ejecutamos la consulta*/
+			sentencia.executeUpdate(consulta);	
 			
 		} catch(SQLException e) {
 			System.out.println("Error con la base de datos " + e.getMessage());
